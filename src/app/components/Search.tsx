@@ -4,19 +4,16 @@ import { Coin } from '@/types/Coin';
 import { FormEvent, useState } from 'react';
 
 type SearchProps = {
-  getSearchResults: (results: Coin[]) => void;
+  query: string;
+  setQuery: (query: string) => void;
+  handleSearch: (query: string) => void;
 };
 
-const Search = ({ getSearchResults }: SearchProps) => {
-  const [query, setQuery] = useState('');
-
+const Search = ({ query, setQuery, handleSearch }: SearchProps) => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const response = await fetch(`/api/coins/search?query=${query}`);
-    const data = await response.json();
-
-    getSearchResults(data);
+    handleSearch(query);
   };
   return (
     <div className="text-center my-20">
